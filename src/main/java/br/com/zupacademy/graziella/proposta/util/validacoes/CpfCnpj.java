@@ -1,4 +1,4 @@
-package br.com.zupacademy.graziella.proposta.validacoes;
+package br.com.zupacademy.graziella.proposta.util.validacoes;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

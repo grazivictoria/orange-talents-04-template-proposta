@@ -1,4 +1,4 @@
-package br.com.zupacademy.graziella.proposta.validacoes;
+package br.com.zupacademy.graziella.proposta.util.validacoes;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

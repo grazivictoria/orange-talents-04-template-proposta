@@ -1,5 +1,8 @@
 package br.com.zupacademy.graziella.proposta.proposta;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -25,8 +28,14 @@ public class PropostaController {
 	public ResponseEntity<?> salvarProposta(@RequestBody @Valid NovaPropostaRequest request, UriComponentsBuilder uriBuilder) {
 		
 		Proposta proposta = request.converter();
+		Optional<Proposta> cpfCnpjList = repository.findByCpfCnpj(proposta.getCpfCnpj());
+		
+		if(cpfCnpjList.isPresent()) {
+			return ResponseEntity.unprocessableEntity().body("Já existe uma proposta cadastrada para esse documento");
+		}
+		
 		repository.save(proposta);
 		
-		return ResponseEntity.created(uriBuilder.path("/proposta/{id}").buildAndExpand(proposta.getId()).toUri()).body(proposta);
+		return ResponseEntity.created(uriBuilder.path("/proposta/{id}").buildAndExpand(proposta.getId()).toUri()).body(proposta.getId());
 	}
 }

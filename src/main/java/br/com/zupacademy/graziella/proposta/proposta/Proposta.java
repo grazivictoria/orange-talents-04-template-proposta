@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import br.com.zupacademy.graziella.proposta.validacoes.CpfCnpj;
+import br.com.zupacademy.graziella.proposta.util.validacoes.CpfCnpj;
 
 @Entity
 public class Proposta {
@@ -37,4 +37,7 @@ public class Proposta {
 		return id;
 	}
 	
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
 }
