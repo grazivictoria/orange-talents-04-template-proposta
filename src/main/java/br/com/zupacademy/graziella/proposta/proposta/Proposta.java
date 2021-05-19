@@ -8,9 +8,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import br.com.zupacademy.graziella.proposta.util.validacoes.CpfCnpj;
 import br.com.zupacademy.graziella.proposta.webservices.analise.Status;
+import br.com.zupacademy.graziella.proposta.webservices.cartao.Cartao;
 
 @Entity
 public class Proposta {
@@ -25,6 +27,8 @@ public class Proposta {
 	private BigDecimal salario;
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	@OneToOne
+	private Cartao cartao;
 	
 	public Proposta() {
 		
@@ -53,6 +57,13 @@ public class Proposta {
 	public String getNome() {
 		return nome;
 	}
-	
-	
+
+	public Cartao getCartao() {
+		return cartao;
+	}
+
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
+
 }
