@@ -3,25 +3,23 @@ package br.com.zupacademy.graziella.proposta.proposta;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.zupacademy.graziella.proposta.util.validacoes.CpfCnpj;
 
 
 public class NovaPropostaRequest {
 
-	@NotNull @NotEmpty @CpfCnpj
+	@NotNull @NotBlank @CpfCnpj
 	private String documento;
-	@NotNull @NotEmpty @Email
+	@NotNull @NotBlank @Email
 	private String email;
-	@NotNull @NotEmpty
+	@NotNull @NotBlank
 	private String nome;
-	@NotNull @NotEmpty
+	@NotNull @NotBlank
 	private String endereco;
 	@NotNull @Positive
 	private BigDecimal salario;
