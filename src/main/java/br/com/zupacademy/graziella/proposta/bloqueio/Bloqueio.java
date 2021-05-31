@@ -18,7 +18,7 @@ public class Bloqueio {
 	private LocalDateTime dataBloqueio = LocalDateTime.now();
 	private String ipCliente;
 	private String userAgente;
-	@OneToOne
+	@OneToOne(mappedBy = "bloqueio")
 	private Cartao cartao;
 	
 	public Long getId() {
@@ -43,5 +43,8 @@ public class Bloqueio {
 		this.cartao = cartao;
 	}
 	
+	@Deprecated
+	public Bloqueio() {
+	}
 	
 }

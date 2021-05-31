@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.graziella.proposta.webservices.cartao.Cartao;
+import br.com.zupacademy.graziella.proposta.webservices.cartao.CartaoClient;
 import br.com.zupacademy.graziella.proposta.webservices.cartao.CartaoRepository;
+import feign.FeignException;
 
 @RestController
 @RequestMapping("/api/bloqueio")
@@ -22,21 +24,31 @@ public class BloqueioController {
 	@Autowired
 	private CartaoRepository cartaoRepository;
 	@Autowired
-	private BloqueioRepository bloqueioRepository;
+	private CartaoClient cartaoCLient;
 	
 	@PostMapping("/{cartaoId}")
 	public ResponseEntity<?> novoBloqueio(@PathVariable Long cartaoId, HttpServletRequest servletRequest, @RequestHeader(value = "User-Agent") String userAgent) {
-
+		
 		Optional<Cartao> possivelCartao = cartaoRepository.findById(cartaoId);
+		
 		if(possivelCartao.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		if(bloqueioRepository.existsByCartaoId(cartaoId)) {
-			return ResponseEntity.unprocessableEntity().body("Cartão já se encontra bloqueado");
-		}
+		
 		Cartao cartao = possivelCartao.get();
-		Bloqueio novoBloqueio = new Bloqueio(servletRequest.getRemoteAddr(), userAgent, cartao);
-		bloqueioRepository.save(novoBloqueio);
-		return ResponseEntity.ok().build();
+		try {
+			
+			cartaoCLient.realizarBloqueio(cartao.getNumero(), new NovoBloqueioRequest("Proposta"));
+			Bloqueio novoBloqueio = new Bloqueio(servletRequest.getRemoteAddr(), userAgent, cartao);
+			cartao.bloquear(novoBloqueio);
+			
+			cartaoRepository.save(cartao);
+			
+			return ResponseEntity.ok().build();
+			
+		} catch(FeignException e) {
+			return ResponseEntity.unprocessableEntity().body("Não foi possível realizar o bloqueio");
+		}
+		
 	}
 }
