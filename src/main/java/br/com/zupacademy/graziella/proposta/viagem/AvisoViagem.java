@@ -22,7 +22,7 @@ public class AvisoViagem {
 	private String destino;
 	private LocalDateTime dataAviso = LocalDateTime.now();
 	@Future
-	private LocalDate dataTermino;
+	private LocalDate validoAte;
 	@NotBlank
 	private String ipCliente;
 	@NotBlank
@@ -39,8 +39,8 @@ public class AvisoViagem {
 	public LocalDateTime getDataAviso() {
 		return dataAviso;
 	}
-	public LocalDate getDataTermino() {
-		return dataTermino;
+	public LocalDate getValidoAte() {
+		return validoAte;
 	}
 	public String getIpCliente() {
 		return ipCliente;
@@ -52,10 +52,10 @@ public class AvisoViagem {
 		return cartao;
 	}
 	
-	public AvisoViagem(@NotBlank String destino, @Future LocalDate dataTermino,
+	public AvisoViagem(@NotBlank String destino, @Future LocalDate validoAte,
 			@NotBlank String ipCliente, @NotBlank String userAgent, Cartao cartao) {
 		this.destino = destino;
-		this.dataTermino = dataTermino;
+		this.validoAte = validoAte;
 		this.ipCliente = ipCliente;
 		this.userAgent = userAgent;
 		this.cartao = cartao;

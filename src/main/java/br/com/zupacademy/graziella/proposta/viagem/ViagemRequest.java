@@ -11,15 +11,25 @@ public class ViagemRequest {
 
 	@NotBlank
 	private String destino;
-	@Future @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
-	private LocalDate dataTermino;
+	@Future @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private LocalDate validoAte;
 	
 	public String getDestino() {
 		return destino;
 	}
 	
-	public LocalDate getDataTermino() {
-		return dataTermino;
+	public LocalDate getValidoAte() {
+		return validoAte;
 	}
+
+	public ViagemRequest(@NotBlank String destino, @Future LocalDate validoAte) {
+		this.destino = destino;
+		this.validoAte = validoAte;
+	}
+
+	@Deprecated
+	public ViagemRequest() {
+	}
+	
 	
 }
