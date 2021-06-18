@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.zupacademy.graziella.proposta.bloqueio.BloqueioResponse;
 import br.com.zupacademy.graziella.proposta.bloqueio.NovoBloqueioRequest;
+import br.com.zupacademy.graziella.proposta.carteira.NovaCarteiraRequest;
 import br.com.zupacademy.graziella.proposta.viagem.ViagemRequest;
 
 @Component
@@ -22,6 +23,8 @@ public interface CartaoClient {
 	 public BloqueioResponse realizarBloqueio(@PathVariable String id,  @RequestBody NovoBloqueioRequest request);
 	
 	@PostMapping("/api/cartoes/{id}/avisos")
-	 public ViagemResponse avisoViagem(@PathVariable String id,  @RequestBody ViagemRequest request);
+	 public void avisoViagem(@PathVariable String id,  @RequestBody ViagemRequest request);
 	
+	@PostMapping("/api/cartoes/{id}/carteiras")
+	public void cadastrarCarteira(@PathVariable String id, @RequestBody NovaCarteiraRequest request);
 }

@@ -24,7 +24,7 @@ public class BloqueioController {
 	@Autowired
 	private CartaoRepository cartaoRepository;
 	@Autowired
-	private CartaoClient cartaoCLient;
+	private CartaoClient cartaoClient;
 	
 	@PostMapping("/{cartaoId}")
 	public ResponseEntity<?> novoBloqueio(@PathVariable Long cartaoId, HttpServletRequest servletRequest, @RequestHeader(value = "User-Agent") String userAgent) {
@@ -38,7 +38,7 @@ public class BloqueioController {
 		Cartao cartao = possivelCartao.get();
 		try {
 			
-			cartaoCLient.realizarBloqueio(cartao.getNumero(), new NovoBloqueioRequest("Proposta"));
+			cartaoClient.realizarBloqueio(cartao.getNumero(), new NovoBloqueioRequest("Proposta"));
 			Bloqueio novoBloqueio = new Bloqueio(servletRequest.getRemoteAddr(), userAgent, cartao);
 			cartao.bloquear(novoBloqueio);
 			
