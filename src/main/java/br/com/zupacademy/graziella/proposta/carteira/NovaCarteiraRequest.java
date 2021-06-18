@@ -1,11 +1,15 @@
 package br.com.zupacademy.graziella.proposta.carteira;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
 
 public class NovaCarteiraRequest {
 
-	@NotBlank
+	@NotBlank @Email
 	private String email;
+	@NotNull
 	private TipoCarteira carteira;
 	
 	public String getEmail() {
