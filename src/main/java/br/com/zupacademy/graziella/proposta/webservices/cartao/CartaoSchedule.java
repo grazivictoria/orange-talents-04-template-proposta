@@ -20,7 +20,7 @@ public class CartaoSchedule {
 	private CartaoRepository cartaoRepository;
 	
 	@Scheduled(fixedDelayString = "${periodicidade.consulta-cartao}")
-	private void consultaCartao() {
+	public void consultaCartao() {
 		List<Proposta> propostas = propostaRepository.buscarPropostasSemCartao();
 		
 		for (Proposta proposta : propostas) {
